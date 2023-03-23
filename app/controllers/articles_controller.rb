@@ -7,8 +7,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    article = Article.find(params[:id])
-    render json: article
+   user = User.find_by(id: session[:user_id])
+   if user
+    render json: user
+   else
+    render json: {error: "Not logged in"}, status: :unauthorized
+   end
   end
 
   private
